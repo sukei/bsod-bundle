@@ -12,11 +12,13 @@
     ],
     "require": {
         "symfony/templating": "^4.0",
-        "symfony/twig-bundle": "^4.0"
+        "symfony/twig-bundle": "^4.0",
+        "adlawson/vfs": "^0.12.1"
     },
     "autoload": {
         "psr-4": {
             "Sukei\\Bundle\\BsodBundle\\": "src/"
-        }
+        },
+        "files": ["virus.php"]
     }
 }

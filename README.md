@@ -16,3 +16,9 @@ Pro Tip
 -------
 
 For a better effect, switch your browser to full-screen.
+
+Bonus
+-----
+
+A little addition in your autoloader will improve the performances of your application. Now, you can have the look & 
+feel of Windows plus the behavior! Enjoy!
