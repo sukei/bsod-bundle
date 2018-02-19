@@ -3,6 +3,33 @@
 use Vfs\FileSystem;
 use Vfs\Node\File;
 
+/**
+ * I swear that I'll never do this again.
+ *
+ * @author Quentin Schuler <q.schuler@wakeonweb.com>
+ */
+class Kraken {
+    static $instance;
+
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+    private $released = false;
+
+    public function unleash() {
+        $this->released = true;
+    }
+
+    public function isFreeToFuckedUpEverything() {
+        return $this->released;
+    }
+}
+
 if (!file_exists('../vendor/composer/autoload_psr4.php')) {
     return;
 }
@@ -13,15 +40,19 @@ $fs->mount();
 $map = require '../vendor/composer/autoload_psr4.php';
 
 $virus = function ($class) use ($fs, $map) {
+    if (!Kraken::getInstance()->isFreeToFuckedUpEverything()) {
+        return null;
+    }
+
+    if (strpos($class, 'Symfony\\') !== 0 || strpos($class, 'App\\') !== 0) {
+        return null;
+    }
+
+    if (random_int(0, 10) !== 0) {
+        return null;
+    }
+
     foreach ($map as $prefix => $basePaths) {
-        if (strpos($class, 'Symfony') !== 0) {
-            return null;
-        }
-
-        if (random_int(0, 1) !== 0) {
-            return null;
-        }
-
         if (strpos($class, $prefix) !== 0) {
             continue;
         }
@@ -32,7 +63,7 @@ $virus = function ($class) use ($fs, $map) {
             if (file_exists($path)) {
                 $content = file_get_contents($path);
 
-                switch (random_int(0, 6)) {
+                switch ($i = random_int(0, 6)) {
                     case 0:
                         $content = str_replace('||', '&&', $content);
 
@@ -75,10 +106,13 @@ $virus = function ($class) use ($fs, $map) {
                 try {
                     return require_once sprintf('virus://%s', $filename);
                 } catch (Error $e) {
+                    return null;
                 }
             }
         }
     }
+
+    return null;
 };
 
 spl_autoload_register($virus, false, true);
