@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Boom!</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0000aa;
+            color: #cccccc;
+        }
+
+        .exception {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Lucida Console", monospace;
+        }
+
+        .exception__block {
+            width: 80ch;
+        }
+
+        .exception__title {
+            display: inline;
+            text-align: center;
+            background-color: #cccccc;
+            color: #0000aa;
+        }
+
+        .exception__center,
+        .exception__title,
+        .exception__message,
+        .exception__trace,
+        .exception__trace-item {
+            font-size: 1rem;
+        }
+
+        .exception__center,
+        .exception__title,
+        .exception__message,
+        .exception__trace {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .exception__trace {
+            padding-left: 0;
+        }
+
+        .exception__trace-item {
+            list-style: none;
+        }
+
+        .exception__trace-item::before {
+            content: "* ";
+        }
+
+        .exception__center {
+            text-align: center;
+        }
+
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        @-webkit-keyframes blink {
+            67% { opacity: 0 }
+        }
+
+        @-moz-keyframes blink {
+            67% { opacity: 0 }
+        }
+
+        @-o-keyframes blink {
+            67% { opacity: 0 }
+        }
+
+        @keyframes blink {
+            67% { opacity: 0 }
+        }
+    </style>
+</head>
+<body class="exception">
+    <div class="exception__block">
+        <h1 class="exception__center">
+            <span class="exception__title">Symfony</span>
+        </h1>
+        <div class="exception__message">{{ exception.message|nl2br }}</div>
+        <ul class="exception__trace">
+        {% for trace in exception.trace %}
+            {% if trace.file|default(false) %}
+                {% set line_number = trace.line|default(1) %}
+                {% set file_link = trace.file|file_link(line_number) %}
+                {% set file_path = trace.file|format_file(line_number)|striptags|replace({ (' at line ' ~ line_number): '' }) %}
+                {% set file_path_parts = file_path|split(constant('DIRECTORY_SEPARATOR')) %}
+
+                <li class="exception__trace-item">
+                    in
+                    <a href="{{ file_link }}">{{ file_path_parts[:-1]|join(constant('DIRECTORY_SEPARATOR')) }}{{ constant('DIRECTORY_SEPARATOR') }}{{ file_path_parts|last }}</a>
+                    (line {{ line_number }})
+                </li>
+           {% endif %}
+        {% endfor %}
+        </ul>
+        <div class="exception__message">Contact your god or technical support group for further assistance.</div>
+        <div class="exception__center">
+            <span class="exception__message">Press any key to give up <span class="blink">_</span></span>
+        </div>
+    </div>
+</body>
+</html>

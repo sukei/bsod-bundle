@@ -1,0 +1,22 @@
+{
+    "name": "sukei/bsod-bundle",
+    "description": "Give to your development environment a Windows look & feel.",
+    "keywords": ["symfony", "exception", "bsod", "windows"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Quentin Schuler",
+            "email": "qschuler@neosyne.com"
+        }
+    ],
+    "require": {
+        "symfony/templating": "^4.0",
+        "symfony/twig-bundle": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sukei\\Bundle\\BsodBundle\\": "src/"
+        }
+    }
+}

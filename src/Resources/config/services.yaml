@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+
+    Sukei\Bundle\BsodBundle\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
