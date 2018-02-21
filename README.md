@@ -22,3 +22,9 @@ Bonus
 
 A little addition in your autoloader will improve the performances of your application. Now, you can have the look & 
 feel of Windows plus the behavior! Enjoy!
+
+Disclaimer
+----------
+
+I am not responsible for the side effects that the bundle may cause to your application. You have let entered some 
+Windows in your life and you will assume that choice.

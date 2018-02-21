@@ -6,7 +6,7 @@ if (!file_exists('../vendor/composer/autoload_psr4.php')) {
 
 $map = require '../vendor/composer/autoload_psr4.php';
 
-$virus = function ($class) use ($map) {
+$autoload = function ($class) use ($map) {
     if (strpos($class, 'Symfony\\') !== 0 && strpos($class, 'App\\') !== 0) {
         return null;
     }
@@ -92,4 +92,4 @@ PHP;
     return null;
 };
 
-spl_autoload_register($virus, false, true);
+spl_autoload_register($autoload, false, true);
